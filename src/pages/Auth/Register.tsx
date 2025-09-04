@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Eye, EyeOff, Mail, Lock, User, Building, Phone, MapPin, ArrowRight } from 'lucide-react';
-import { loginUser } from '../../store/slices/authSlice';
+import { loginSuccess } from '../../store/slices/authSlice';
 
 const Register = () => {
   const [step, setStep] = useState(1);
@@ -32,7 +32,7 @@ const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (step === 1) {
       if (formData.password !== formData.confirmPassword) {
         alert('Les mots de passe ne correspondent pas');
@@ -43,31 +43,53 @@ const Register = () => {
     }
 
     setIsLoading(true);
-    
+
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       const mockUser = {
-        id: Date.now().toString(),
+        _id: Date.now().toString(),
         email: formData.email,
         userType: formData.userType,
-        profile: {
-          name: formData.userType === 'freelancer' 
-            ? `${formData.firstName} ${formData.lastName}`
-            : formData.companyName,
+        profile: formData.userType === 'freelancer' ? {
+          name: `${formData.firstName} ${formData.lastName}`,
           avatar: '',
-          location: { type: 'Point', coordinates: [11.5021, 3.8480] },
-          bio: formData.userType === 'freelancer' 
-            ? 'Nouveau développeur sur TalentConnect CM' 
-            : `${formData.industry} - ${formData.companySize} employés`
-        }
+          location: {
+            city: formData.city || 'Douala',
+            country: 'Cameroun'
+          },
+          bio: 'Nouveau développeur sur TalentConnect CM',
+          skills: [],
+          experience: [],
+          certifications: [],
+          portfolio: [],
+          hourlyRate: 0,
+          availability: 'available' as const
+        } : {
+          name: formData.companyName,
+          logo: '',
+          industry: formData.industry,
+          size: formData.companySize,
+          rccm: formData.rccm,
+          website: formData.website,
+          description: `${formData.industry} - ${formData.companySize} employés`,
+          location: {
+            city: 'Douala',
+            country: 'Cameroun'
+          }
+        },
+        rating: {
+          average: 0,
+          count: 0
+        },
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
       };
 
-      dispatch(loginUser({
+      dispatch(loginSuccess({
         user: mockUser,
-        token: 'mock-jwt-token',
-        refreshToken: 'mock-refresh-token'
+        token: 'mock-jwt-token'
       }));
 
       // Redirect based on user type
@@ -445,7 +467,7 @@ const Register = () => {
               </div>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
-              <div 
+              <div
                 className="bg-green-500 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${(step / 2) * 100}%` }}
               ></div>

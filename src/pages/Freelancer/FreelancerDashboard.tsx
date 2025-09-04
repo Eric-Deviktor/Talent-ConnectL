@@ -7,7 +7,7 @@ const FreelancerDashboard = () => {
   const stats = [
     { name: 'Profil Vues', value: '1,247', change: '+18%', icon: Eye, color: 'text-blue-600', bgColor: 'bg-blue-100' },
     { name: 'Candidatures', value: '23', change: '+5%', icon: MessageSquare, color: 'text-green-600', bgColor: 'bg-green-100' },
-    { name: 'Revenus ce Mois', value: '€3,420', change: '+12%', icon: DollarSign, color: 'text-purple-600', bgColor: 'bg-purple-100' },
+    { name: 'Revenus ce Mois', value: '2,243,520 FCFA', change: '+12%', icon: DollarSign, color: 'text-purple-600', bgColor: 'bg-purple-100' },
     { name: 'Note Moyenne', value: '4.8', change: '+0.2', icon: Star, color: 'text-yellow-600', bgColor: 'bg-yellow-100' },
   ];
 
@@ -32,7 +32,7 @@ const FreelancerDashboard = () => {
       title: 'Application E-commerce Mobile',
       client: 'TechCorp SARL',
       status: 'in_progress',
-      budget: '€5,500',
+      budget: '3,608,000 FCFA',
       deadline: '2024-04-15',
       progress: 65
     },
@@ -41,7 +41,7 @@ const FreelancerDashboard = () => {
       title: 'Site Web Corporate',
       client: 'StartupXYZ',
       status: 'completed',
-      budget: '€2,800',
+      budget: '1,836,800 FCFA',
       deadline: '2024-03-30',
       progress: 100
     },
@@ -50,7 +50,7 @@ const FreelancerDashboard = () => {
       title: 'Dashboard Analytics',
       client: 'DataCorp',
       status: 'pending',
-      budget: '€4,200',
+      budget: '2,755,200 FCFA',
       deadline: '2024-05-01',
       progress: 0
     },
@@ -130,7 +130,7 @@ const FreelancerDashboard = () => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
-              <Tooltip formatter={(value) => [`€${value}`, 'Revenus']} />
+              <Tooltip formatter={(value) => [`${value.toLocaleString()} FCFA`, 'Revenus']} />
               <Bar dataKey="earnings" fill="#10B981" />
             </BarChart>
           </ResponsiveContainer>
